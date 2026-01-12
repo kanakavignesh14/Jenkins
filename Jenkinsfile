@@ -22,4 +22,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            echo "i will come always... HELLO WORLD"
+        }
+    }
 }
