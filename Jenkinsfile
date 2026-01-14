@@ -1,64 +1,68 @@
 pipeline {
     agent {
-       node {
-           label 'AGENT-1'
-        
-       }
+        node {
+            label 'AGENT-1'
+        }
     }
-    // environment variables
+
     environment {
         COURSE = "jenkins"
     }
+
     options {
-        timeout(time: 10, unit: 'SECONDS') // # it is time for this pipline to get comnplte if not pipleline will get aborted
-        disableConcurrentBuilds() // it will not allow 2 build simustaneously
+        timeout(time: 10, unit: 'SECONDS')   // pipeline max runtime
+        disableConcurrentBuilds()            // prevent parallel runs
     }
+
     stages {
         stage('Build') {
             steps {
                 script {
                     sh """ 
                         echo "Building"
-                               
                         env
                     """    
                 }
             }
         }
+
         stage('Test') {
             steps {
                 script {
                     sh """ 
-                        echo "Building"
-                        echo $COURSE   
-                        #sleep 10     
-                        
+                        echo "Testing"
+                        echo \$COURSE
                     """    
                 }
-                
             }
         }
+
         stage('Deploy') {
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
                 submitter "alice,bob"
                 parameters {
-                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                    string(
+                        name: 'PERSON',
+                        defaultValue: 'Mr Jenkins',
+                        description: 'Who should I say hello to?'
+                    )
                 }
+            }
             steps {
                 echo "Deploying"
                 cleanWs()
             }
         }
     }
+
     post {
         always {
             echo "i will come always... HELLO WORLD"
         }
         success {
             echo "I will run if success"
-
         }
         failure {
             echo "I will run if failure"
@@ -66,6 +70,5 @@ pipeline {
         aborted {
             echo "pipeline is aborted"
         }
-    }
     }
 }
