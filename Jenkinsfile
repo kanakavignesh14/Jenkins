@@ -10,7 +10,7 @@ pipeline {
     }
 
     options {
-        timeout(time: 10, unit: 'SECONDS')   // pipeline max runtime
+        //timeout(time: 10, unit: 'SECONDS')   // pipeline max runtime
         disableConcurrentBuilds()            // prevent parallel runs
     }
 
