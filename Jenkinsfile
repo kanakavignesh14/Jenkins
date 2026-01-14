@@ -5,7 +5,7 @@ pipeline {
         
        }
     }
-
+    # environment variables
     environment {
         COURSE = "jenkins"
     }
