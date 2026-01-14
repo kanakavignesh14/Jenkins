@@ -5,13 +5,13 @@ pipeline {
         
        }
     }
-    # environment variables
+    // environment variables
     environment {
         COURSE = "jenkins"
     }
     options {
-        timeout(time: 10, unit: 'SECONDS') 
-        disableConcurrentBuilds() 
+        timeout(time: 10, unit: 'SECONDS') // # it is time for this pipline to get comnplte if not pipleline will get aborted
+        disableConcurrentBuilds() // it will not allow 2 build simustaneously
     }
     stages {
         stage('Build') {
